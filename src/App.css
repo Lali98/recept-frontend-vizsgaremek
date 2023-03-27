@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
+/*
 header {
     background-image: url('gallery/header_pic.jpg');
-    /*height: 20rem;
+    height: 20rem;
     width: 100%;
     margin-top: 0;
     position: fixed;
-    background-position: 50%;*/
+    background-position: 50%;
 }
 
 h1.thicker{
@@ -16,10 +17,29 @@ h1.thicker{
     color: rgba(210, 113, 58, 1);
     font-size: 4em;
 }
-
+*/
 body{
     background-image: url('gallery/wood_wp.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+header {
+    background-image: url('gallery/header_pic.jpg');
+    width: 100%;
+    position: fixed;
+    background-position: 50%;
+}
+
+.thicker {
+    font-weight: 100;
+    font-family: 'Great Vibes', cursive;
+    background-color: rgba(255, 255, 255, 0.44);
+    color: rgba(210, 113, 58, 1);
+}
+
+#login {
+    background: rgba(255, 255, 255, 0.3);
+
 }
