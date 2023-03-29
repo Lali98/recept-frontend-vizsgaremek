@@ -4,7 +4,6 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import {useState} from "react";
 import {AccountCircle} from "@mui/icons-material";
-import {Link} from "react-router-dom"
 
 function Header() {
     const pages = ['Kategória', 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
@@ -85,17 +84,17 @@ function Header() {
                         }}
                     >
                         {pages.map((page, index) => (<MenuItem key={page} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    <Button
-                                        key={page}
-                                        onClick={handleCloseNavMenu}
-                                        sx={{color: '#000', display: 'block', fontWeight: 'bold'}}
-                                        href={url[index]}
-                                    >
-                                        {page}
-                                    </Button>
-                                </Typography>
-                            </MenuItem>))}
+                            <Typography textAlign="center">
+                                <Button
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{color: '#000', display: 'block', fontWeight: 'bold'}}
+                                    href={url[index]}
+                                >
+                                    {page}
+                                </Button>
+                            </Typography>
+                        </MenuItem>))}
                     </Menu>
                 </Box>
 
@@ -159,17 +158,17 @@ function Header() {
                         onClose={handleCloseUserMenu}
                     >
                         {settings.map((setting, index) => (<MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">
-                                    <Button
-                                        key={setting}
-                                        onClick={handleCloseNavMenu}
-                                        sx={{color: '#000', display: 'block', fontWeight: 'bold'}}
-                                        href={'/asd'}
-                                    >
-                                        {setting}
-                                    </Button>
-                                </Typography>
-                            </MenuItem>))}
+                            <Typography textAlign="center">
+                                <Button
+                                    key={setting}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{color: '#000', display: 'block', fontWeight: 'bold'}}
+                                    href={'/asd'}
+                                >
+                                    {setting}
+                                </Button>
+                            </Typography>
+                        </MenuItem>))}
                     </Menu>
                 </Box>
             </Toolbar>
