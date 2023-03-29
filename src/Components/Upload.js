@@ -1,6 +1,13 @@
+import Header from "./Header";
+import Footer from "./Footer";
+
 function Upload() {
     return (
-        <p>Upload</p>
+        <>
+            <Header />
+
+            <Footer />
+        </>
     )
 }
 
