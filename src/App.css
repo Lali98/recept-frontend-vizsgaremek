@@ -20,9 +20,10 @@ h1.thicker{
 */
 body{
     background-image: url('gallery/wood_wall.jpg');
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 }
 
 header {
@@ -35,4 +36,8 @@ header {
 #login {
     background: rgba(255, 255, 255, 0.3);
 
+}
+
+.main {
+    min-height: 600px; 
 }

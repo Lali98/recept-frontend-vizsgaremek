@@ -10,7 +10,7 @@ function Category() {
     return(
         <>
             <Header />
-            <div className='container min-vh-100 d-flex align-items-center justify-content-center'>
+            <div className='container d-flex align-items-center justify-content-center main'>
                 <div className="row">
                     <Categories />
                 </div>

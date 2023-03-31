@@ -10,7 +10,7 @@ function HomePage() {
     return (
         <>
             <Header />
-            <div className='container'>
+            <div className='container main'>
                 <div className="row mt-lg-5 mt-3 ms-auto mb-3 mb-lg-5">
                     <Cards />
                 </div>

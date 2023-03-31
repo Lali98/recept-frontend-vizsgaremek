@@ -1,13 +1,13 @@
 import {
-    AppBar, Box, Button, Container, IconButton, InputBase, Menu, MenuItem, Toolbar, Tooltip, Typography
+    AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 
 function Header() {
-    const pages = ['Kategória', 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
-    const url = ['/kategotia', '/feltoltes', '#kapcsolat', '/bejelenkezes'];
+    const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
+    const url = ['/kategotia', '/receptek', '/feltoltes', '#kapcsolat', '/bejelenkezes'];
 
     const settings = ['Profile', 'Admin', 'Kijelenkezés'];
 
