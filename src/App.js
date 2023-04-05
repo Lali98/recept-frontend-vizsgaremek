@@ -14,7 +14,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<HomePage/>} />
-                <Route path='/kategotia' element={<Category />} />
+                <Route path='/kategoria' element={<Category />} />
                 <Route path='/feltoltes' element={<Upload />} />
                 <Route path='/bejelenkezes' element={<Login />} />
                 <Route path='/admin' element={<Admin />} />

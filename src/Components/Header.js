@@ -7,7 +7,7 @@ import { AccountCircle } from "@mui/icons-material";
 
 function Header() {
     const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
-    const url = ['/kategotia', '/receptek', '/feltoltes', '#kapcsolat', '/bejelenkezes'];
+    const url = ['/kategoria', '/receptek', '/feltoltes', '#kapcsolat', '/bejelenkezes'];
 
     const settings = ['Profile', 'Admin', 'Kijelenkezés'];
 

@@ -7,7 +7,7 @@ import Footer from './Footer';
 function RecipeAll() {
     const [recipes, setRecipes] = useState([]);
     function fetchRecipes() {
-        return fetch('http://192.168.0.65:9000/api/recipes')
+        return fetch(process.env.REACT_APP_BACKEND_URL + '/api/recipes')
             .then(response => response.json())
             .then(data => setRecipes(data));
     }
@@ -36,7 +36,7 @@ function RecipeAll() {
                                 <CardMedia
                                     component="img"
                                     height="194"
-                                    image="/images/kaja.jpg"
+                                    image={recipe.imageUrl == "" ? "/images/kaja.jpg" : `${process.env.REACT_APP_BACKEND_URL}/static/images/${recipe.imageUrl}`}
                                     alt={recipe.name}
                                 />
                                 <CardContent>

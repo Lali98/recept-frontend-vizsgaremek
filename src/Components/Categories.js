@@ -5,7 +5,7 @@ import { useState } from "react";
 function Categories() {
     const [categories, setCategories] = useState([]);
     function fetchCategories() {
-        return fetch('http://192.168.0.65:9000/api/categories')
+        return fetch(process.env.REACT_APP_BACKEND_URL + '/api/categories')
             .then(response => response.json())
             .then(data => setCategories(data));
     }

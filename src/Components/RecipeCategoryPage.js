@@ -8,8 +8,11 @@ function RecipeCategoryPage() {
     const { categoryId } = useParams();
     const [recipes, setRecipe] = useState([]);
     function fetchRecipes() {
-        return fetch(`http://192.168.0.65:9000/api/recipes/category/${categoryId}`)
+        console.log(process.env.REACT_APP_BACKEND_URL);
+        
+        return fetch(process.env.REACT_APP_BACKEND_URL + "/api/recipes/category/" + categoryId)
             .then(response => {
+                console.log(response);
                 if (response.ok) {
                     return response.json();
                 }
@@ -34,7 +37,7 @@ function RecipeCategoryPage() {
                                         <CardMedia
                                             component="img"
                                             height="200"
-                                            image="/images/kaja.jpg"
+                                            image={recipe.imageUrl == "" ? "/images/kaja.jpg" : `${process.env.REACT_APP_BACKEND_URL}/static/images/${recipe.imageUrl}`}
                                             alt="green iguana"
                                         />
                                         <CardContent>
