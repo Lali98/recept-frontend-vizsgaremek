@@ -59,7 +59,11 @@ function EditRecipe() {
                                 variant="standard"
                                 className="col-lg-10"
                                 value={ingredient != "" ? [ingredient]: ""}
-                                onChange={(e) => setRecipe({...recipe, ingredients: [e.target.value]})}
+                                onChange={(e) => {
+                                    const newIngredients = [...ingredients];
+                                    newIngredients[i] = e.target.value;
+                                    setIngredients(newIngredients);
+                                }}
                             />
                         ))}
                     </Box>
