@@ -26,7 +26,7 @@ function Footer() {
                             <a href="/" style={{color :'#d2713a'}}>Felhasználói fiók</a>
                         </p>
                         <p>
-                            <a href="/kategotia" style={{color :'#d2713a'}}>Kategóriák</a>
+                            <a href="/kategoria" style={{color :'#d2713a'}}>Kategóriák</a>
                         </p>
                         <p>
                             <a href="/" style={{color :'#d2713a'}}>Ötletek és galéria</a>

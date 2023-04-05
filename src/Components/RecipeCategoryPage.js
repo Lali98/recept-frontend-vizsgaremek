@@ -33,12 +33,12 @@ function RecipeCategoryPage() {
                         recipes.map((recipe) => (
                             <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={recipe._id}>
                                 <Card sx={{ maxWidth: 345 }}>
-                                    <CardActionArea href="">
+                                    <CardActionArea href={`/recept/${recipe._id}`}>
                                         <CardMedia
                                             component="img"
                                             height="200"
                                             image={recipe.imageUrl == "" ? "/images/kaja.jpg" : `${process.env.REACT_APP_BACKEND_URL}/static/images/${recipe.imageUrl}`}
-                                            alt="green iguana"
+                                            alt={recipe.name}
                                         />
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="div">
@@ -55,7 +55,7 @@ function RecipeCategoryPage() {
                         <div class="alert alert-danger" role="alert">
                             <h4 class="alert-heading">Sajnáljuk</h4>
                             <hr />
-                            <p>Nincsen ilyen receptek.</p>
+                            <p>Nincsen ilyen recept.</p>
                         </div>}
                 </div>
             </div>
