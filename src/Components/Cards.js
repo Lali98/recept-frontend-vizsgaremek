@@ -1,10 +1,22 @@
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
+import { useEffect, useState } from "react";
 
 function Cards() {
+    const [recipes, setRecipes] = useState([]);
+    function fetchRecipes() {
+        return fetch(process.env.REACT_APP_BACKEND_URL + '/api/recipes')
+            .then(response => response.json())
+            .then(data => setRecipes(data));
+    }
+
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
+
     return (
         <>
-            {[...Array(6)].map((_, i) => (
-                <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={i}>
+            {recipes.map((recipe) => (
+                <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={recipe._id}>
                     <Card sx={{ maxWidth: 345 }}>
                         <CardActionArea>
                             <CardMedia
@@ -18,8 +30,7 @@ function Cards() {
                                     Lizard
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                                    species, ranging across all continents except Antarctica
+                                    {recipe.description}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
