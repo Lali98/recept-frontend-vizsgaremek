@@ -3,10 +3,9 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { Box, TextField } from "@mui/material";
 
 function EditRecipe() {
-    const { recipeId } = useParams();
+    const {recipeId} = useParams();
 
     const [recipe, setRecipe] = useState([]);
     const [ingredients, setIngredients] = useState([]);
@@ -23,6 +22,17 @@ function EditRecipe() {
             });
     }
 
+    const [categories, setCategories] = useState([]);
+    function fetchCategories() {
+        return fetch(process.env.REACT_APP_BACKEND_URL + '/api/categories')
+            .then(response => response.json())
+            .then(data => setCategories(data));
+    }
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
     useEffect(() => {
         fetchRecipe();
     }, []);
@@ -33,40 +43,35 @@ function EditRecipe() {
             <div className="container main">
                 <div className="row p-4 mt-lg-3 mb-lg-3" style={{ backgroundColor: "#ffffff66" }}>
                     <h3 className="text-center">Recept szerkeztése</h3>
-                    <Box>
-                        <TextField
-                            id="name" 
-                            label="Étel neve" 
-                            variant="standard" 
-                            className="col-lg-12 mb-3" 
-                            value={recipe.name != "" ? [recipe.name]: ""}
-                            onChange={(e) => setRecipe({...recipe, name: e.target.value})}
-                        />
-                        <TextField
-                            id="description" 
-                            label="Leírás" 
-                            variant="standard" 
-                            multiline
-                            rows="4"
-                            className="col-lg-12 mb-3" 
-                            value={recipe.description != "" ? [recipe.description]: ""}
-                            onChange={(e) => setRecipe({...recipe, description: e.target.value})}
-                        />
-                        {ingredients.map((ingredient, i) => (
-                            <TextField
-                                id="ingredient"
-                                label={(i + 1) + ". hozzávaló"}
-                                variant="standard"
-                                className="col-lg-10"
-                                value={ingredient != "" ? [ingredient]: ""}
-                                onChange={(e) => {
-                                    const newIngredients = [...ingredients];
-                                    newIngredients[i] = e.target.value;
-                                    setIngredients(newIngredients);
-                                }}
-                            />
-                        ))}
-                    </Box>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Étel neve</label>
+                            <input type="text" className="form-control" id="name" name="name" placeholder={recipe.name} defaultValue={recipe.name} />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="description" className="form-label">Leírás</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                className="form-control"
+                                rows="6"
+                                defaultValue={recipe.description}
+                                placeholder={recipe.description}
+                            ></textarea>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="categoriesId" className="form-label">Kategoria</label>
+                            <select className="form-select" id="categoriesId" name="categoriesId">
+                                {categories.map((category) => (
+                                    <option 
+                                        key={category._id} 
+                                        defaultValue={category._id} 
+                                        selected={category._id === recipe.categoriesId}
+                                    >{category.name}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
             <Footer />
