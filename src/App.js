@@ -23,7 +23,7 @@ function App() {
                 <Route path='/receptek' element={<RecipeAll />} />
                 <Route path='/kategoria/:categoryId' element={<RecipeCategoryPage />} />
                 <Route path='/recept/:recipeId' element={<SingleRecipe />} />
-                <Route path='/recept/:recipeId/szerkeztes' element={<EditRecipe />} />
+                <Route path='/recept/:recipeId/szerkesztes' element={<EditRecipe />} />
             </Routes>
         </BrowserRouter>
     );
