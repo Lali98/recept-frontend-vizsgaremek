@@ -55,7 +55,7 @@ function RecipeCategoryPage() {
                         <div class="alert alert-danger" role="alert">
                             <h4 class="alert-heading">Sajnáljuk</h4>
                             <hr />
-                            <p>Nincsen ilyen recept.</p>
+                            <p>Nincs ilyen recept.</p>
                         </div>}
                 </div>
             </div>

@@ -117,6 +117,7 @@ function EditRecipe() {
                   rows="6"
                   defaultValue={recipe.description}
                   placeholder={recipe.description}
+                  maxLength='898'
                 ></textarea>
               </div>
               <div className="mb-3">
@@ -185,6 +186,7 @@ function EditRecipe() {
                                 return ret;
                               });
                             }}
+                            //TODO: Title hozzá adása
                           >
                             <DeleteOutlineIcon />
                           </button>
@@ -201,6 +203,7 @@ function EditRecipe() {
                       onClick={() => {
                         setIngredients((prev) => [...prev, [uuidv4(), ""]]);
                       }}
+                      title="Hozzávaló hozzáadása"
                     >
                       <AddOutlinedIcon />
                     </button>

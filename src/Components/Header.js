@@ -7,9 +7,10 @@ import { AccountCircle } from "@mui/icons-material";
 
 function Header() {
     const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
-    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', '/bejelenkezes'];
+    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', '/bejelentkezes'];
 
     const settings = ['Profile', 'Admin', 'Kijelenkezés'];
+    const settingsUrl = ['/', '/admin', '/kijelenkezes'];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -163,7 +164,7 @@ function Header() {
                                     key={setting}
                                     onClick={handleCloseNavMenu}
                                     sx={{ color: '#000', display: 'block', fontWeight: 'bold' }}
-                                    href={'/asd'}
+                                    href={settingsUrl[index]}
                                 >
                                     {setting}
                                 </Button>

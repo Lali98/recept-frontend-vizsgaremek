@@ -89,6 +89,7 @@ function Upload() {
                   name="description"
                   className="form-control"
                   rows="6"
+                  maxLength='898'
                 ></textarea>
               </div>
               <div className="mb-3">
@@ -154,6 +155,7 @@ function Upload() {
                                 return ret;
                               });
                             }}
+                            title={(index + 1) +". hozzávaló törlése"}
                           >
                             <DeleteOutlineIcon />
                           </button>
@@ -170,6 +172,7 @@ function Upload() {
                       onClick={() => {
                         setIngredients((prev) => [...prev, [uuidv4(), ""]]);
                       }}
+                      title="Hozzávaló hozzáadása"
                     >
                       <AddOutlinedIcon />
                     </button>
@@ -222,6 +225,7 @@ function Upload() {
                                     return ret;
                                   });
                                 }}
+                                title={(index + 1) +". lépés törlése"}
                               >
                                 <DeleteOutlineIcon />
                               </button>
@@ -240,6 +244,7 @@ function Upload() {
                       onClick={() => {
                         setSteps((prev) => [...prev, [uuidv4(), ""]]);
                       }}
+                      title="Lépés hozzáadása"
                     >
                       <AddOutlinedIcon />
                     </button>

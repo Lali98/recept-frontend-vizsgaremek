@@ -1,94 +1,163 @@
-import { useRef, useState, useEffect } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3-23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8-24}$/;
-
-function Register() {
-  const userRef = useRef();
-  const errRef = useRef();
-
-  const [user, setUser] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
-
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
-
-  const [matchPwd, setmatchPwd] = useState("");
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
-
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    useRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
-    setValidName(result);
-  }, [user]);
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
-    setValidPwd(result);
-    setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd]);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, matchPwd, pwd]);
-
+function Copyright(props) {
   return (
-    <>
-      <Header />
-      <div className="container main">
-        <div className="row" style={{ backgroundColor: "#ffffff66" }}>
-          <div className="col-lg-12">
-            <h3 className="text-center">Regisztráció</h3>
-            <form>
-              <div
-                className="alert alert-warning"
-                role="alert"
-                ref={errRef}
-                aria-live="assertive"
-                style={{ visibility: errMsg ? "hidden" : "visible" }}
-              >
-                {errMsg}
-              </div>
-              <label htmlFor="username" className="form-label">Felhasználónév:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    required
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnode"
-                    onFocus={() => setUserFocus(true)}
-                    onBlur={() => setUserFocus(false)}
-                />
-                <div id="uidnode" className="invalid-feedback">
-                    4-24 karakter lehet.<br />
-                    Kell lennie nagybetünek<br />
-                    Betük, számok, aláhuzás, kötőjelek tartalamahat.
-                </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
-export default Register;
+const theme = createTheme();
+
+export default function SignUp() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Regisztráció - Delicious";
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+
+    data.append("username", e.target.elements.username.value);
+    data.append("password", e.target.elements.password.value);
+    data.append("email", e.target.elements.email.value);
+
+    console.log(
+      data.get('username'),
+      data.get('password'),
+      data.get('email')
+    );
+
+    if (data.get('username') && data.get('password') && data.get('email')) {
+      if (e.target.elements.password.value === e.target.elements.passwordA.value) {
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/register`, {
+          method: 'POST',
+          body: data
+        });
+        const serverData = await result.json();
+        console.log(serverData);
+        if (result.status === 201) {
+          localStorage.setItem('username', serverData.username);
+          localStorage.setItem('token', serverData.token);
+          localStorage.setItem('role', serverData.role);
+          localStorage.setItem('id', serverData._id);
+          navigate('/');
+        } else {
+          if (serverData.message === "User already exists") {
+            alert('A felhasználó már létezik!');
+          }
+        }
+      } else {
+        alert('A két jelszó nem egyforma');
+      }
+    } else {
+      alert('Minden mező kőtelező kitőlteni!');
+    }
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs" sx={{ backgroundColor: '#ffffff77' }}>
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Regisztráció
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete='off'
+                  name="username"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Felhasználónév"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email cím"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Jelszó"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="passwordA"
+                  label="Jelszó mégegyszer"
+                  type="password"
+                  id="passwordA"
+                  autoComplete="off"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Regisztráció
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/bejelentkezes" variant="body2">
+                  Ha van felhasználót akkor katt ide!
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
+  );
+}
