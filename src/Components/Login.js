@@ -47,10 +47,9 @@ export default function SignIn() {
             });
             const serverData = await result.json();
             if (result.status === 200) {
-                localStorage.setItem('username', serverData.username);
-                localStorage.setItem('token', serverData.token);
                 localStorage.setItem('role', serverData.role);
                 localStorage.setItem('id', serverData._id);
+                document.cookie = `token=${serverData.token}; max-age=86400`;
                 navigate('/');
             } else if (serverData.message === "User does not exist") {
                 alert('Nincs ilyen regisztrált email cím!');
