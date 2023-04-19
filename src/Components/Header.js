@@ -6,11 +6,11 @@ import { useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 
 function Header() {
-    const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', 'Belépés / Regisztráció'];
-    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', '/bejelentkezes'];
+    const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', !localStorage.getItem('id') ? 'Belépés / Regisztráció' : ""];
+    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', !localStorage.getItem("id") ? '/bejelentkezes' : ""];
 
-    const settings = ['Profile', 'Admin', 'Kijelenkezés'];
-    const settingsUrl = ['/', '/admin', '/kijelenkezes'];
+    const settings = ['Profile', localStorage.getItem('role') === 'admin' ? 'Admin' : '' , 'Kijelenkezés'];
+    const settingsUrl = ['/', localStorage.getItem('role') === 'admin' ? '/admin' : '', '/kijelenkezes'];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -84,7 +84,7 @@ function Header() {
                             display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        {pages.map((page, index) => (<MenuItem key={page} onClick={handleCloseNavMenu}>
+                        {pages.map((page, index) => page !== "" ? (<MenuItem key={page} onClick={handleCloseNavMenu}>
                             <Typography textAlign="center">
                                 <Button
                                     key={page}
@@ -95,7 +95,7 @@ function Header() {
                                     {page}
                                 </Button>
                             </Typography>
-                        </MenuItem>))}
+                        </MenuItem>) : "")}
                     </Menu>
                 </Box>
 
@@ -119,18 +119,18 @@ function Header() {
                     Delicious
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {pages.map((page, i) => (<Button
+                    {pages.map((page, i) => page !== "" ? (<Button
                         key={page}
                         onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: '#d2713a', display: 'block', fontWeight: 'bold' }}
                         href={url[i]}
                     >
                         {page}
-                    </Button>))}
+                    </Button>) : "")}
                 </Box>
 
                 {/*Accunt*/}
-                <Box sx={{ flexGrow: 0 }}>
+                {localStorage.getItem("id") ? <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Profile">
                         <IconButton
                             sx={{ color: '#d2713a' }}
@@ -158,7 +158,7 @@ function Header() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting, index) => (<MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        {settings.map((setting, index) => setting !== "" ? (<MenuItem key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">
                                 <Button
                                     key={setting}
@@ -169,9 +169,9 @@ function Header() {
                                     {setting}
                                 </Button>
                             </Typography>
-                        </MenuItem>))}
+                        </MenuItem>) : "")}
                     </Menu>
-                </Box>
+                </Box> : ""}
             </Toolbar>
         </Container>
     </AppBar>)

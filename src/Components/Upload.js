@@ -56,7 +56,7 @@ function Upload() {
                    "recipeImage",
                    e.target.elements["recipeImage"].files[0]
                  );
-                 data.append("createUserId", "123456789");
+                 data.append("createUserId", localStorage.getItem('id'));
 
                  let result = await fetch(
                    process.env.REACT_APP_BACKEND_URL + "/api/recipes/create",

@@ -31,7 +31,7 @@ function Cards() {
                             <CardMedia
                                 component="img"
                                 height="200"
-                                image={recipe.imageUrl == "" ? "/images/kaja.jpg" : `${process.env.REACT_APP_BACKEND_URL}/static/images/${recipe.imageUrl}`}
+                                image={recipe.imageUrl == "" ? "/images/emptydish.jpg" : `${process.env.REACT_APP_BACKEND_URL}/static/images/${recipe.imageUrl}`}
                                 alt="green iguana"
                             />
                             <CardContent>
