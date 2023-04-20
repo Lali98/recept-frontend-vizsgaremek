@@ -6,7 +6,7 @@ import { Card, CardMedia, } from "@mui/material";
 import { getCookies, userFetch } from '../App';
 
 function SingleRecipe() {
-    const [user, setUser] = useState({});
+    const [loginuser, setLoginUser] = useState({});
     const [cookies, setCookise] = useState();
     const [createUser, setCreateUser] = useState({});
 
@@ -15,7 +15,7 @@ function SingleRecipe() {
     }, []);
 
     useEffect(() => {
-        userFetch(cookies, setUser);
+        userFetch(cookies, setLoginUser);
     }, [cookies]);
 
     const { recipeId } = useParams();
@@ -85,7 +85,7 @@ function SingleRecipe() {
                         </div>
                     </div>
 
-                    {user.role === 'admin' ? <a href={`/recept/${recipeId}/szerkesztes`} className="btn btn-light fw-semibold m-3" style={{ maxWidth: 300 }} role="button">Szerkesztés</a> : ""}
+                    {loginuser.role === 'admin' || loginuser._id === recipe.createdUserId && loginuser._id ? <a href={`/recept/${recipeId}/szerkesztes`} className="btn btn-light fw-semibold m-3" style={{ maxWidth: 300 }} role="button">Szerkesztés</a> : ""}
 
                     <div className="card-group">
                         <div className="col-lg-4 fw-semibold card mb-3 border-light" style={{ backgroundColor: '#eeeff1', padding: '30px' }}>

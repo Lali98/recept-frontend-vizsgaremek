@@ -143,7 +143,7 @@ function Header() {
 
                 {/*Accunt*/}
                 {user._id ? <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Profile">
+                    <Tooltip title={user.username}>
                         <IconButton
                             sx={{ color: '#d2713a' }}
                             size="large"
@@ -170,6 +170,11 @@ function Header() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
+                        <MenuItem>
+                            <Typography textAlign="center">
+                                <p>Felhasználónév: {user.username} <br />Jogosultsága: {user.role}</p>
+                            </Typography>
+                        </MenuItem>
                         {settings.map((setting, index) => setting !== "" ? (<MenuItem key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">
                                 <Button
