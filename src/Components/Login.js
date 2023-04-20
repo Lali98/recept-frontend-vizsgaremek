@@ -16,7 +16,7 @@ function Copyright(props) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" href="/">
-                Your Website
+                Delicious
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -47,9 +47,7 @@ export default function SignIn() {
             });
             const serverData = await result.json();
             if (result.status === 200) {
-                localStorage.setItem('role', serverData.role);
-                localStorage.setItem('id', serverData._id);
-                document.cookie = `token=${serverData.token}; max-age=86400`;
+                document.cookie = `id=${serverData._id}; max-age=86400`;
                 navigate('/');
             } else if (serverData.message === "User does not exist") {
                 alert('Nincs ilyen regisztrált email cím!');
@@ -57,7 +55,7 @@ export default function SignIn() {
                 alert('Helytelen jelszó!');
             }
         } else {
-            alert('Minden mező kőtelező kitőlteni!');
+            alert('Minden mezőt kötelező kitölteni!');
         }
     };
 

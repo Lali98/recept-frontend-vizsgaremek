@@ -5,7 +5,7 @@ import {useEffect} from "react";
 
 function Category() {
     useEffect(() => {
-        document.title = "Delicious - Kategoriák"
+        document.title = "Delicious - Kategóriák"
     })
     return(
         <>

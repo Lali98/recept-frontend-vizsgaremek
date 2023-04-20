@@ -5,6 +5,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { uuidv4 } from "./EditRecipe";
 import { useNavigate } from "react-router-dom";
+import { getCookies, userFetch } from "../App";
 
 function Upload() {
   const navigate = useNavigate();
@@ -23,6 +24,15 @@ function Upload() {
     fetchCategories();
   }, []);
 
+  const [cookies, setCookise] = useState();
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setCookise(getCookies());
+  }, []);
+  useEffect(() => {
+    userFetch(cookies, setUser);
+  }, [cookies]);
+
   return (
     <>
       <Header />
@@ -34,39 +44,40 @@ function Upload() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 if (e.target.elements.categoriesId.value === "") {
-                    alert("Kérem válaszon kategoriát!");
-                    return;
+                  alert("Kérem válasszon kategóriát!");
+                  return;
                 }
 
                 const data = new FormData();
                 data.append("name", e.target.elements.name.value);
                 data.append("description", e.target.elements.description.value);
-                
+
                 data.append(
                   "categoriesId",
-                   e.target.elements.categoriesId.value
-                 );
-                 ingredients.forEach((ingredient) => {
-                   data.append("ingredients[]", ingredient[1]);
-                 });
-                 steps.forEach((step) => {
-                   data.append("steps[]", step[1]);
-                 });
-                 data.append(
-                   "recipeImage",
-                   e.target.elements["recipeImage"].files[0]
-                 );
-                 data.append("createUserId", '12345678');
+                  e.target.elements.categoriesId.value
+                );
+                ingredients.forEach((ingredient) => {
+                  data.append("ingredients[]", ingredient[1]);
+                });
+                steps.forEach((step) => {
+                  data.append("steps[]", step[1]);
+                });
+                data.append(
+                  "recipeImage",
+                  e.target.elements["recipeImage"].files[0]
+                );
+                data.append("createdUserId", cookies.id);
+                console.log(data.get('createdUserId', cookies.id));
 
-                 let result = await fetch(
-                   process.env.REACT_APP_BACKEND_URL + "/api/recipes/create",
-                   {
-                     method: "POST",
-                     body: data,
-                   }
-                 );
-                 let dataJson = await result.json();
-                 navigate(`/recept/${dataJson._id}`);
+                let result = await fetch(
+                  process.env.REACT_APP_BACKEND_URL + "/api/recipes/create",
+                  {
+                    method: "POST",
+                    body: data,
+                  }
+                );
+                let dataJson = await result.json();
+                navigate(`/recept/${dataJson._id}`);
               }}
             >
               <div className="mb-3">
@@ -94,14 +105,14 @@ function Upload() {
               </div>
               <div className="mb-3">
                 <label htmlFor="categoriesId" className="form-label">
-                  Kategoria
+                  Kategória
                 </label>
                 <select
                   className="form-select"
                   id="categoriesId"
                   name="categoriesId"
                 >
-                    <option disabled selected value="">---Kérem válaszon---</option>
+                  <option disabled selected value="">---Kérem válasszon---</option>
                   {categories.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
@@ -111,7 +122,7 @@ function Upload() {
               </div>
               <div className="mb-3">
                 <label htmlFor="ingredients" className="form-label">
-                  Hozzávalok:
+                  Hozzávalók:
                 </label>
                 {ingredients.map(([ingredientId, ingredient], index) => (
                   <div key={ingredientId} className="offset-lg-1">
@@ -155,7 +166,7 @@ function Upload() {
                                 return ret;
                               });
                             }}
-                            title={(index + 1) +". hozzávaló törlése"}
+                            title={(index + 1) + ". hozzávaló törlése"}
                           >
                             <DeleteOutlineIcon />
                           </button>
@@ -225,7 +236,7 @@ function Upload() {
                                     return ret;
                                   });
                                 }}
-                                title={(index + 1) +". lépés törlése"}
+                                title={(index + 1) + ". lépés törlése"}
                               >
                                 <DeleteOutlineIcon />
                               </button>

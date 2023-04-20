@@ -2,15 +2,27 @@ import {
     AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
+import { getCookies, userFetch } from '../App';
 
 function Header() {
-    const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', !localStorage.getItem('id') ? 'Belépés / Regisztráció' : ""];
-    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', !localStorage.getItem("id") ? '/bejelentkezes' : ""];
+    const [user, setUser] = useState({});
+    const [cookies, setCookise] = useState();
 
-    const settings = ['Profile', localStorage.getItem('role') === 'admin' ? 'Admin' : '' , 'Kijelenkezés'];
-    const settingsUrl = ['/', localStorage.getItem('role') === 'admin' ? '/admin' : '', '/kijelenkezes'];
+    useEffect(() => {
+        setCookise(getCookies());
+    }, []);
+
+    useEffect(() => {
+        userFetch(cookies, setUser);
+    }, [cookies]);
+
+    const pages = ['Kategória', "Receptek", 'Recept feltöltése', 'Kapcsolat', !user._id ? 'Belépés / Regisztráció' : ""];
+    const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', !user._id ? '/bejelentkezes' : ""];
+
+    const settings = ['Profile', user.role === 'admin' ? 'Admin' : '' , 'Kijelenkezés'];
+    const settingsUrl = ['/', user.role === 'admin' ? '/admin' : '', '/kijelenkezes'];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -130,7 +142,7 @@ function Header() {
                 </Box>
 
                 {/*Accunt*/}
-                {localStorage.getItem("id") ? <Box sx={{ flexGrow: 0 }}>
+                {user._id ? <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Profile">
                         <IconButton
                             sx={{ color: '#d2713a' }}
@@ -161,7 +173,7 @@ function Header() {
                         {settings.map((setting, index) => setting !== "" ? (<MenuItem key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">
                                 <Button
-                                    key={setting}
+                                    key={index}
                                     onClick={handleCloseNavMenu}
                                     sx={{ color: '#000', display: 'block', fontWeight: 'bold' }}
                                     href={settingsUrl[index]}

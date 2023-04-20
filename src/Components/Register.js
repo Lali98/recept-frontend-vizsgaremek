@@ -17,7 +17,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="/">
-        Your Website
+        Delicious
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -57,9 +57,7 @@ export default function SignUp() {
         const serverData = await result.json();
         console.log(serverData);
         if (result.status === 201) {
-          localStorage.setItem('role', serverData.role);
-          localStorage.setItem('id', serverData._id);
-          document.cookie = `token=${serverData.token}; max-age=86400`;
+          document.cookie = `id=${serverData.id}; max-age=86400`;
           navigate('/');
         } else {
           if (serverData.message === "User already exists") {
@@ -70,7 +68,7 @@ export default function SignUp() {
         alert('A két jelszó nem egyforma');
       }
     } else {
-      alert('Minden mező kőtelező kitőlteni!');
+      alert('Minden mező kötelező kitölteni!');
     }
   }
 
@@ -149,7 +147,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/bejelentkezes" variant="body2">
-                  Ha van felhasználót akkor katt ide!
+                  Ha van felhasználói fiókod akkor katt ide!
                 </Link>
               </Grid>
             </Grid>

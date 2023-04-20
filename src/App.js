@@ -14,45 +14,54 @@ import Register from './Components/Register';
 import Logout from './Components/Logout';
 import { useEffect, useState } from 'react';
 
-function App() {
-    const [user, setUser] = useState({});
-    const [success, setSuccess] = useState();
-    const [cookies, setCookise] = useState();
-    function getCookies() {
-        const cookies = {};
-        document.cookie.split(';').forEach(cookie => {
-            const [name, value] = cookie.split('=').map(c => c.trim());
-            if (name) {
-                cookies[name] = value;
-            }
-        });
-        return cookies;
-    }
-    function userFetch() {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${localStorage.getItem('id')}`)
+export function userFetch(cookies, setUser) {
+    if (cookies) {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${cookies.id}`, {
+            method: 'GET'
+        })
             .then((res) => res.json())
             .then(setUser)
             .catch(() => {
                 return "";
             })
     }
+}
+
+export function getCookies() {
+    const cookies = {};
+    document.cookie.split(';').forEach(cookie => {
+        const [name, value] = cookie.split('=').map(c => c.trim());
+        if (name) {
+            cookies[name] = value;
+        }
+    });
+    return cookies;
+}
+
+function App() {
+    const [user, setUser] = useState({});
+    const [cookies, setCookise] = useState();
+
     useEffect(() => {
-        setSuccess(userFetch());
         setCookise(getCookies());
     }, []);
+
+    useEffect(() => {
+        userFetch(cookies, setUser);
+    }, [cookies]);
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/kategoria' element={<Category />} />
-                <Route path='/uj-recept' element={success !== "" && localStorage.getItem('id') ? <Upload /> : <HomePage />} />
-                <Route path='/bejelentkezes' element={success !== "" && !localStorage.getItem('id') ? <Login /> : <HomePage />} />
-                <Route path='/admin' element={localStorage.getItem('role') === "admin" && localStorage.getItem('role') === user.role && success !== "" && localStorage.getItem('role') && cookies['token'] ? (<Admin />) : (<HomePage />)} />
+                <Route path='/uj-recept' element={user.token ? <Upload /> : <HomePage />} />
+                <Route path='/bejelentkezes' element={!user.token ? <Login /> : <HomePage />} />
+                <Route path='/admin' element={user.role === "admin" ? (<Admin />) : (<HomePage />)} />
                 <Route path='/receptek' element={<RecipeAll />} />
                 <Route path='/kategoria/:categoryId' element={<RecipeCategoryPage />} />
                 <Route path='/recept/:recipeId' element={<SingleRecipe />} />
                 <Route path='/recept/:recipeId/szerkesztes' element={<EditRecipe />} />
-                <Route path='/regisztracio' element={success !== "" && !localStorage.getItem('id') ? <Register /> : <HomePage />} />
+                <Route path='/regisztracio' element={!user.token ? <Register /> : <HomePage />} />
                 <Route path='/kijelenkezes' element={<Logout />} />
             </Routes>
         </BrowserRouter>

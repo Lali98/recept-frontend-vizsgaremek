@@ -30,7 +30,7 @@ function EditRecipe() {
           data.ingredients.map((ingredient) => [uuidv4(), ingredient])
         );
         setSteps(data.steps.map((step) => [uuidv4(), step]));
-        document.title = `"${data.name}" szerkeztése - Delicious`;
+        document.title = `"${data.name}" szerkesztése - Delicious`;
       });
   }
 
@@ -55,7 +55,7 @@ function EditRecipe() {
       <div className="container main">
         <div className="row" style={{ backgroundColor: "#ffffff66" }}>
           <div className="col-lg-12">
-            <h3 className="text-center">Recept szerkeztése</h3>
+            <h3 className="text-center">Recept szerkesztése</h3>
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
@@ -122,7 +122,7 @@ function EditRecipe() {
               </div>
               <div className="mb-3">
                 <label htmlFor="categoriesId" className="form-label">
-                  Kategoria
+                  Kategória
                 </label>
                 <select
                   className="form-select"
@@ -142,7 +142,7 @@ function EditRecipe() {
               </div>
               <div className="mb-3">
                 <label htmlFor="ingredients" className="form-label">
-                  Hozzávalok:
+                  Hozzávalók:
                 </label>
                 {ingredients.map(([ingredientId, ingredient], index) => (
                   <div key={ingredientId} className="offset-lg-1">
@@ -299,7 +299,7 @@ function EditRecipe() {
                     </label>
                     {recipe.imageUrl === "" ? (
                       <p className="fw-bold text-danger">
-                        Nincs még feltőltve kép!
+                        Nincs még feltöltve kép!
                       </p>
                     ) : (
                       <img
