@@ -57,7 +57,7 @@ export default function SignUp() {
         const serverData = await result.json();
         console.log(serverData);
         if (result.status === 201) {
-          document.cookie = `id=${serverData.id}; max-age=86400`;
+          document.cookie = `id=${serverData._id}; max-age=86400`;
           navigate('/');
         } else {
           if (serverData.message === "User already exists") {
