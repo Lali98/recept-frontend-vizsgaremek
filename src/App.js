@@ -13,6 +13,7 @@ import EditRecipe from './Components/EditRecipe';
 import Register from './Components/Register';
 import Logout from './Components/Logout';
 import { useEffect, useState } from 'react';
+import Profile from './Components/Profile';
 
 export function userFetch(cookies, setUser) {
     if (cookies) {
@@ -63,6 +64,7 @@ function App() {
                 <Route path='/recept/:recipeId/szerkesztes' element={<EditRecipe />} />
                 <Route path='/regisztracio' element={!user.token ? <Register /> : <HomePage />} />
                 <Route path='/kijelenkezes' element={<Logout />} />
+                <Route path='/felhaszalo/:userId' element={<Profile />} />
             </Routes>
         </BrowserRouter>
     );

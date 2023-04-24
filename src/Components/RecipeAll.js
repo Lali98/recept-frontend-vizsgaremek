@@ -22,15 +22,11 @@ function RecipeAll() {
                 <div className='row mt-lg-5 mt-3 ms-auto mb-3 mb-lg-5'>
                 <h2 className='text-center col-12' style={{color: '#fff'}}>Az összes receptek</h2>
                     {recipes.map((recipe) => (
-                        <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={recipe._id}>
+                        recipe.isEnable ?
+                            <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={recipe._id}>
                             <CardActionArea href={`/recept/${recipe._id}`}>
                                 <Card sx={{ maxWidth: 345 }}>
                                     <CardHeader
-                                        avatar={
-                                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                                R
-                                            </Avatar>
-                                        }
                                         title={recipe.name}
                                         subheader={recipe.createdAt.split('T')[0]}
                                     />
@@ -47,7 +43,7 @@ function RecipeAll() {
                                     </CardContent>
                                 </Card>
                             </CardActionArea>
-                        </div>
+                        </div> : ""
                     ))}
                 </div>
             </div>

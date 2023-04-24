@@ -22,7 +22,7 @@ function Header() {
     const url = ['/kategoria', '/receptek', '/uj-recept', '#kapcsolat', !user._id ? '/bejelentkezes' : ""];
 
     const settings = ['Profile', user.role === 'admin' ? 'Admin' : '' , 'Kijelenkezés'];
-    const settingsUrl = ['/', user.role === 'admin' ? '/admin' : '', '/kijelenkezes'];
+    const settingsUrl = [`/felhaszalo/${user._id}`, user.role === 'admin' ? '/admin' : '', '/kijelenkezes'];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);

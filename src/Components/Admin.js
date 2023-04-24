@@ -49,8 +49,12 @@ export default function BasicTable() {
     }, []);
 
     useEffect(() => {
-        fetchUsers();
+        fetchUsers()
     }, []);
+
+    useEffect(() => {
+        document.title = "Admin - Delicious"
+    })
 
     return (
         <>

@@ -131,7 +131,7 @@ function Upload() {
                         "row mb-3 " +
                         (index === ingredients.length - 1
                           ? ""
-                          : "border-botton")
+                          : "border-bottom")
                       }
                     >
                       <div className="col-lg-10">
