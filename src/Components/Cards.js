@@ -14,7 +14,13 @@ function Cards() {
         return fetch(process.env.REACT_APP_BACKEND_URL + '/api/recipes')
             .then(response => response.json())
             .then(data => {
-                setRandomDatas(getRandomObjects(data, 6));
+                const rDatas = [];
+                for (let i = 0; i < data.length; i++) {
+                    if(data[i].isEnable) {
+                        rDatas.push(data[i]);
+                    }
+                }
+                setRandomDatas(getRandomObjects(rDatas, rDatas.length >= 6 ? 6 : rDatas.length));
             });
     }
 
@@ -24,7 +30,8 @@ function Cards() {
 
     return (
         <>
-            {randomDatas.map((recipe) => (
+            {randomDatas.map((recipe, index) => (
+                recipe.isEnable ? 
                 <div className='col-lg-4 col-md-6 col-sm-6 p-3' key={recipe._id}>
                     <Card sx={{ maxWidth: 345 }}>
                         <CardActionArea href={`/recept/${recipe._id}`}>
@@ -45,7 +52,7 @@ function Cards() {
                         </CardActionArea>
                     </Card>
                 </div>
-            ))}
+            : ""))}
         </>
     )
 }
