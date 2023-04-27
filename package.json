@@ -22,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start2": "--max_old_space_size=8048 react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
